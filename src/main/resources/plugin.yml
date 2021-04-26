@@ -1,0 +1,77 @@
+name: '${project.name}'
+description: '${project.description}'
+version: '${project.version}'
+load: 'POSTWORLD'
+author: 'Jonas0206'
+authors: ['Jonas0206']
+website: '${project.url}'
+main: '${project.groupId}.${project.artifactId}.${project.name}'
+depend: []
+softdepend: []
+api-version: '1.8.8'
+loadbefore: []
+prefix: '${project.name}'
+
+commands:
+  sign:
+    description: 'Signiert ein Item!'
+    usage: '</command> <sign>'
+  gamemode:
+    description: 'Setzt dich in den entsprechenden Gamemode!'
+    usage: '</command> <gamemode>'
+    aliases: 'gm'
+  enchant:
+    description: 'Verzaubere deine Items!'
+    usage: '</command> <enchantment> <level>'
+  armor:
+    description: 'zieht dir die Admin-Rüstung an!'
+    usage: '</command>'
+  eco:
+    description: 'verändert den geldbetrag eines Spielers!'
+    usage: '</command> <add|remove|set> <player> <amount>'
+  money:
+    description: 'zeigt dir deinen oder den Kontostand eines anderen!'
+    usage: '</command> | </command> <player>'
+  pay:
+    description: 'Überweist einem Spieler einen gewissen Betrag!'
+    usage: '</command> <player> <amount>'
+  teleport:
+    description: 'Öffnet dir ein Teleport-Menü!'
+    usage: '</command>'
+    aliases: 'tp'
+  invsee:
+    description: 'Öffnet dir das Inventar eines anderen!'
+    usage: '</command> <player>'
+  enderchest:
+    description: 'Öffnet deine oder die Enderchest eines anderen!'
+    usage: '</command> | </command> <player>'
+    aliases: 'ec'
+  chatclear:
+    description: 'Leert den Chat!'
+    usage: '</command>'
+    aliases: 'cc'
+  rename:
+    description: 'Ändert den Namen eines Items!'
+    usage: '</command> <name>'
+  sethome:
+    description: 'Setzt dein Home!'
+    usage: '</command>'
+  home:
+    description: 'Teleportiert dich zu deinem Home!'
+    usage: '</command>'
+  sudo:
+    description: 'Führe einen Command für jemand anderen aus!'
+    usage: '</command> <player> <command>'
+  msg:
+    description: 'Sende einem Spieler eine private Nachricht!'
+    usage: '</command> <player> <message>'
+  r:
+    description: 'Sende dem letzten Spieler eine Nachricht, mit dem du geschrieben hast!'
+    usage: '</command> <message>'
+  i:
+    description: 'Gibt dir einen Stack des gewünschten Materials!'
+    usage: '</command> <material>'
+  deathpoint:
+    description: 'Teleportiert dich zu deinem Todes-Punkt!'
+    usage: '</command>'
+    aliases: 'dp'
