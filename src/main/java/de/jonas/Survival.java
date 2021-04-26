@@ -1,5 +1,7 @@
 package de.jonas;
 
+import de.jonas.survival.commands.AdminCommands;
+import de.jonas.survival.handler.commands.CommandHandler;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,6 +21,16 @@ public class Survival extends JavaPlugin {
 
         // declare prefix
         prefix = getGeneratedPrefix();
+
+        CommandHandler commandHandler = new CommandHandler();
+        commandHandler.register(
+            new Class[]{
+                AdminCommands.class,
+            }
+        );
+        getLogger().info(
+            "Es wurden alle Befehle registriert."
+        );
 
         getLogger().info(
             "Das Plugin wurde erfolgreich aktiviert!"
