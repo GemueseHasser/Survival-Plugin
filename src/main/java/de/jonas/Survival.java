@@ -6,6 +6,8 @@ import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.time.format.DateTimeFormatter;
+
 public class Survival extends JavaPlugin {
 
     @Getter
@@ -21,6 +23,9 @@ public class Survival extends JavaPlugin {
 
         // declare prefix
         prefix = getGeneratedPrefix();
+
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        System.out.println(formatter.toString());
 
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.register(
