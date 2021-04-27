@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class PlayerCommands {
 
+    //<editor-fold desc="command: pay">
     @SurvivalCommand(
         command = "pay",
         minLength = 2,
@@ -51,12 +52,13 @@ public final class PlayerCommands {
         );
 
         player.sendMessage(
-            Survival.getPrefix() + "Du hast dem Spieler " + target.getName() + amount + " überwiesen!"
+            Survival.getPrefix() + "Du hast dem Spieler " + target.getName() + " " + amount + " überwiesen!"
         );
 
         target.sendMessage(
             Survival.getPrefix() + "Der Spieler " + player.getName() + " hat dir " + amount + " überwiesen!"
         );
     }
+    //</editor-fold>
 
 }

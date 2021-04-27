@@ -32,7 +32,8 @@ commands:
     description: 'Überweist einem Spieler einen gewissen Betrag!'
   invsee:
     description: 'Öffnet dir das Inventar eines anderen!'
-    usage: '</command> <player>'
+  crash:
+    description: 'Crashed den Client eines Spielers!'
   enderchest:
     description: 'Öffnet deine oder die Enderchest eines anderen!'
     usage: '</command> | </command> <player>'
