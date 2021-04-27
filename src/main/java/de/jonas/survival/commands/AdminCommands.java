@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public final class AdminCommands {
 
@@ -31,6 +32,8 @@ public final class AdminCommands {
     /** Die Nachricht, die einem User gesendet wird, wenn der eingegebene andere User nicht online ist. */
     @NotNull
     private static final String PLAYER_NOT_ONLINE = "Der Spieler ist nicht auf diesem Netwerk online!";
+
+    private static final List<UUID> VANISH = new ArrayList<>();
 
     //<editor-fold desc="command: gamemode">
     /** Die Nummer für Gamemode Überleben. */
@@ -113,7 +116,7 @@ public final class AdminCommands {
             return;
         }
 
-        if (target.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+        if (target.getName().equalsIgnoreCase("Gemuese_Hasser") && !isSame) {
             player.sendMessage(
                 Survival.getPrefix() + "Der Spieler entscheidet seinen Gamemode selbst xD"
             );
@@ -514,5 +517,52 @@ public final class AdminCommands {
         player.openInventory(target.getInventory());
     }
     //</editor-fold>
+
+    @SurvivalCommand(
+        command = "vanish",
+        permission = "survival.vanish",
+        usage = "/vanish"
+    )
+    public void vanish(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        if (VANISH.contains(player.getUniqueId())) {
+            for (@NotNull final Player all : Bukkit.getOnlinePlayers()) {
+                all.sendMessage(
+                    ChatColor.YELLOW + player.getName() + " joined the game"
+                );
+                if (all.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+                    all.sendMessage(
+                        Survival.getPrefix() + "Der Spieler " + player.getName() + " hat sich wieder sichbar "
+                            + "gemacht!"
+                    );
+                    continue;
+                }
+                all.showPlayer(player);
+            }
+            VANISH.remove(player.getUniqueId());
+            player.sendMessage(
+                Survival.getPrefix() + "Du bist nun wieder sichtbar!"
+            );
+        } else {
+            VANISH.add(player.getUniqueId());
+            for (@NotNull final Player all : Bukkit.getOnlinePlayers()) {
+                all.sendMessage(
+                    ChatColor.YELLOW + player.getName() + " left the game"
+                );
+                if (all.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+                    all.sendMessage(
+                        Survival.getPrefix() + "Der Spieler " + player.getName() + " hat sich unsichtbar gemacht!"
+                    );
+                    continue;
+                }
+                all.hidePlayer(player);
+            }
+            player.sendMessage(
+                Survival.getPrefix() + "Du bist nun unsichtbar!"
+            );
+        }
+    }
 
 }

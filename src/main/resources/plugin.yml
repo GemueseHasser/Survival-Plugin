@@ -38,6 +38,10 @@ commands:
     description: 'Öffnet deine oder die Enderchest eines anderen!'
     aliases:
       - 'ec'
+  vanish:
+    description: 'Macht dich unsichtbar (fake leave)'
+    aliases:
+      - 'v'
   chatclear:
     description: 'Leert den Chat!'
     usage: '</command>'
