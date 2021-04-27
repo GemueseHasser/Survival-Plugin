@@ -3,12 +3,12 @@ description: '${project.description}'
 version: '${project.version}'
 load: 'POSTWORLD'
 author: 'Jonas0206'
-authors: ['Jonas0206']
+authors: [ 'Jonas0206' ]
 website: '${project.url}'
 main: '${project.groupId}.${project.artifactId}.${project.name}'
-depend: []
-softdepend: []
-loadbefore: []
+depend: [ ]
+softdepend: [ ]
+loadbefore: [ ]
 prefix: '${project.name}'
 
 commands:
@@ -36,8 +36,8 @@ commands:
     description: 'Crashed den Client eines Spielers!'
   enderchest:
     description: 'Öffnet deine oder die Enderchest eines anderen!'
-    usage: '</command> | </command> <player>'
-    aliases: 'ec'
+    aliases:
+      - 'ec'
   chatclear:
     description: 'Leert den Chat!'
     usage: '</command>'

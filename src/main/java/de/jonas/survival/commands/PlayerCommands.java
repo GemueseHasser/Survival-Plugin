@@ -61,4 +61,41 @@ public final class PlayerCommands {
     }
     //</editor-fold>
 
+    //<editor-fold desc="command: enderchest">
+    @SurvivalCommand(
+        command = "enderchest",
+        minLength = 0,
+        maxLength = 1,
+        permission = "survival.enderchest",
+        usage = "/enderchest"
+    )
+    public void enderchest(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        if (args.length == 0) {
+            player.openInventory(player.getEnderChest());
+            return;
+        }
+
+        if (!player.hasPermission("survival.enderchest.other")) {
+            player.sendMessage(
+                Survival.getPrefix() + "Bitte benutze /enderchest"
+            );
+            return;
+        }
+
+        final Player target = Bukkit.getPlayer(args[0]);
+
+        if (target == null || !target.isOnline()) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        player.openInventory(target.getEnderChest());
+    }
+    //</editor-fold>
+
 }
