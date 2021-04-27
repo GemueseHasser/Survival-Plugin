@@ -3,7 +3,10 @@ package de.jonas.survival.commands;
 import de.jonas.Survival;
 import de.jonas.survival.handler.economy.EconomyHandler;
 import de.jonas.survival.objects.annotations.SurvivalCommand;
+import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -101,12 +104,62 @@ public final class PlayerCommands {
     }
     //</editor-fold>
 
+    //<editor-fold desc="home">
+    @SneakyThrows
+    @SurvivalCommand(
+        command = "sethome",
+        permission = "survival.home",
+        usage = "/sethome"
+    )
     public void setHome(
         @NotNull final Player player,
         @NotNull final String[] args
     ) {
         final File file = new File("plugins/Survival", "homes.yml");
         final YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        final String world = player.getWorld().getName();
+        final int x = player.getLocation().getBlockX();
+        final int y = player.getLocation().getBlockY();
+        final int z = player.getLocation().getBlockZ();
+
+        cfg.set("Home." + player.getUniqueId().toString() + ".World", world);
+        cfg.set("Home." + player.getUniqueId().toString() + ".X", x);
+        cfg.set("Home." + player.getUniqueId().toString() + ".Y", y);
+        cfg.set("Home." + player.getUniqueId().toString() + ".Z", z);
+
+        cfg.save(file);
+
+        player.sendMessage(
+            Survival.getPrefix() + "Du hast dein Home gesetzt!"
+        );
     }
+
+    @SurvivalCommand(
+        command = "home",
+        permission = "survival.home",
+        usage = "/home"
+    )
+    public void home(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final File file = new File("plugins/Survival", "homes.yml");
+        final YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        final World world = Bukkit.getWorld(cfg.getString("Home." + player.getUniqueId().toString() + ".World"));
+        final int x = cfg.getInt("Home." + player.getUniqueId().toString() + ".X");
+        final int y = cfg.getInt("Home." + player.getUniqueId().toString() + ".Y");
+        final int z = cfg.getInt("Home." + player.getUniqueId().toString() + ".Z");
+
+        final Location location = new Location(world, x, y, z);
+
+        player.teleport(location);
+
+        player.sendMessage(
+            Survival.getPrefix() + "Du wurdest zu deinem Home teleportiert!"
+        );
+    }
+    //</editor-fold>
 
 }

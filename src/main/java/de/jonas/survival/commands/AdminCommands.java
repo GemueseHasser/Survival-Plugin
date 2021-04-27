@@ -567,6 +567,7 @@ public final class AdminCommands {
     }
     //</editor-fold>
 
+    //<editor-fold desc="command: rename">
     @SurvivalCommand(
         command = "rename",
         minLength = 1,
@@ -601,5 +602,6 @@ public final class AdminCommands {
             Survival.getPrefix() + "Das Item wurde erfolgreich umbenannt!"
         );
     }
+    //</editor-fold>
 
 }
