@@ -1,7 +1,9 @@
 package de.jonas.survival.commands;
 
 import de.jonas.Survival;
+import de.jonas.survival.handler.economy.EconomyHandler;
 import de.jonas.survival.objects.annotations.SurvivalCommand;
+import de.jonas.survival.objects.util.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -216,5 +218,154 @@ public final class AdminCommands {
         );
     }
     //</editor-fold>
+
+    //<editor-fold desc="command: armor">
+    @SurvivalCommand(
+        command = "armor",
+        permission = "survival.armor",
+        usage = "/armor"
+    )
+    public void armor(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final List<Enchantment> enchantments = new ArrayList<>();
+
+        enchantments.add(Enchantment.PROTECTION_ENVIRONMENTAL);
+        enchantments.add(Enchantment.PROTECTION_FIRE);
+        enchantments.add(Enchantment.PROTECTION_PROJECTILE);
+        enchantments.add(Enchantment.PROTECTION_EXPLOSIONS);
+        enchantments.add(Enchantment.THORNS);
+        enchantments.add(Enchantment.DURABILITY);
+
+        final ItemStack helmet = new ItemCreator(
+            Material.DIAMOND_HELMET,
+            "Helm",
+            enchantments
+        ).getStack();
+
+        final ItemStack chestplate = new ItemCreator(
+            Material.DIAMOND_CHESTPLATE,
+            "Brustplatte",
+            enchantments
+        ).getStack();
+
+        final ItemStack leggings = new ItemCreator(
+            Material.DIAMOND_LEGGINGS,
+            "Hose",
+            enchantments
+        ).getStack();
+
+        enchantments.add(Enchantment.PROTECTION_FALL);
+        enchantments.add(Enchantment.WATER_WORKER);
+
+        final ItemStack boots = new ItemCreator(
+            Material.DIAMOND_BOOTS,
+            "Schuhe",
+            enchantments
+        ).getStack();
+
+        player.getInventory().setHelmet(helmet);
+        player.getInventory().setChestplate(chestplate);
+        player.getInventory().setLeggings(leggings);
+        player.getInventory().setBoots(boots);
+
+        player.sendMessage(
+            Survival.getPrefix() + "Dir wurde die Rüstung angezogen!"
+        );
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="command: economy">
+    @SurvivalCommand(
+        command = "economy",
+        minLength = 3,
+        maxLength = 3,
+        permission = "survival.economy",
+        usage = "/economy <set|add|remove> <player> <amount>"
+    )
+    public void economy(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final Player target = Bukkit.getPlayer(args[1]);
+
+        if (target == null || !target.isOnline()) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        final int amount;
+
+        try {
+            amount = Integer.parseInt(args[2]);
+        } catch (@NotNull final IllegalArgumentException ignored) {
+            player.sendMessage(
+                Survival.getPrefix() + "Bitte wähle einen gültigen Betrag!"
+            );
+            return;
+        }
+
+        switch (args[0]) {
+            case "set":
+                EconomyHandler.setMoney(target, amount);
+                player.sendMessage(
+                    Survival.getPrefix() + "Der Kontostand von " + target.getName() + " wurde auf " + amount +
+                        " gesetzt!"
+                );
+                break;
+
+            case "add":
+                EconomyHandler.setMoney(
+                    target,
+                    EconomyHandler.getMoney(target) + amount
+                );
+                player.sendMessage(
+                    Survival.getPrefix() + "Dem Kontostand von " + target.getName() + " wurde " + amount +
+                        " hinzugefügt!"
+                );
+                break;
+
+            case "remove":
+                EconomyHandler.setMoney(
+                    target,
+                    EconomyHandler.getMoney(target) - amount
+                );
+                player.sendMessage(
+                    Survival.getPrefix() + "Dem Kontostand von " + target.getName() + " wurde " + amount +
+                        " abgezogen!"
+                );
+                break;
+
+            default:
+                player.sendMessage(
+                    Survival.getPrefix() + "Bitte benutze /economy <set|add|remove> <player> <amount>"
+                );
+                break;
+        }
+    }
+    //</editor-fold>
+
+    @SurvivalCommand(
+        command = "money",
+        minLength = 1,
+        maxLength = 1,
+        permission = "survival.money",
+        usage = "/money <player>"
+    )
+    public void money(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final Player target = Bukkit.getPlayer(args[0]);
+
+        final int amount = EconomyHandler.getMoney(target);
+
+        player.sendMessage(
+            Survival.getPrefix() + "Der Kontostand des Spielers " + target.getName() + " beträgt " + amount + "!"
+        );
+    }
 
 }

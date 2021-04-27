@@ -21,21 +21,15 @@ commands:
   enchant:
     description: 'Verzaubere deine Items!'
   armor:
-    description: 'zieht dir die Admin-Rüstung an!'
-    usage: '</command>'
-  eco:
-    description: 'verändert den geldbetrag eines Spielers!'
-    usage: '</command> <add|remove|set> <player> <amount>'
+    description: 'Zieht dir die Rüstung an!'
+  economy:
+    description: 'Editiert den kontostand eines Spielers!'
+    aliases:
+      - 'eco'
   money:
     description: 'zeigt dir deinen oder den Kontostand eines anderen!'
-    usage: '</command> | </command> <player>'
   pay:
     description: 'Überweist einem Spieler einen gewissen Betrag!'
-    usage: '</command> <player> <amount>'
-  teleport:
-    description: 'Öffnet dir ein Teleport-Menü!'
-    usage: '</command>'
-    aliases: 'tp'
   invsee:
     description: 'Öffnet dir das Inventar eines anderen!'
     usage: '</command> <player>'

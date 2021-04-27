@@ -1,7 +1,9 @@
 package de.jonas;
 
 import de.jonas.survival.commands.AdminCommands;
+import de.jonas.survival.commands.PlayerCommands;
 import de.jonas.survival.handler.commands.CommandHandler;
+import de.jonas.survival.task.ScoreboardTask;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,14 +33,25 @@ public class Survival extends JavaPlugin {
         commandHandler.register(
             new Class[]{
                 AdminCommands.class,
+                PlayerCommands.class,
             }
         );
         getLogger().info(
-            "Es wurden alle Befehle registriert."
+            "Registered all commands."
+        );
+
+        new ScoreboardTask().runTaskTimer(
+            this,
+            10,
+            20
         );
 
         getLogger().info(
-            "Das Plugin wurde erfolgreich aktiviert!"
+            "Schedule periodic scoreboard updating"
+        );
+
+        getLogger().info(
+            "The plugin has been activated successful!"
         );
     }
 
