@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -187,6 +188,23 @@ public final class PlayerCommands {
         player.teleport(DEATH_LOCATIONS.get(player.getUniqueId()));
         player.sendMessage(
             Survival.getPrefix() + "Du wurdest zu deinem Todes-Punkt teleportiert!"
+        );
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="command: ping">
+    @SurvivalCommand(
+        command = "ping",
+        permission = "survival.ping",
+        usage = "/ping"
+    )
+    public void ping(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final int ping = ((CraftPlayer) player).getHandle().ping;
+        player.sendMessage(
+            Survival.getPrefix() + "Du hast einen Ping von " + ping + "!"
         );
     }
     //</editor-fold>
