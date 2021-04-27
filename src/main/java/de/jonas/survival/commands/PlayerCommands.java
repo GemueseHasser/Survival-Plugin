@@ -12,8 +12,13 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public final class PlayerCommands {
+
+    public static final Map<UUID, Location> DEATH_LOCATIONS = new HashMap<>();
 
     //<editor-fold desc="command: pay">
     @SurvivalCommand(
@@ -158,6 +163,30 @@ public final class PlayerCommands {
 
         player.sendMessage(
             Survival.getPrefix() + "Du wurdest zu deinem Home teleportiert!"
+        );
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="command: back">
+    @SurvivalCommand(
+        command = "back",
+        permission = "survival.back",
+        usage = "/back"
+    )
+    public void back(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        if (!DEATH_LOCATIONS.containsKey(player.getUniqueId())) {
+            player.sendMessage(
+                Survival.getPrefix() + "Du bist noch nicht gestorben!"
+            );
+            return;
+        }
+
+        player.teleport(DEATH_LOCATIONS.get(player.getUniqueId()));
+        player.sendMessage(
+            Survival.getPrefix() + "Du wurdest zu deinem Todes-Punkt teleportiert!"
         );
     }
     //</editor-fold>

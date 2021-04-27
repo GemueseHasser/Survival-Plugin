@@ -3,9 +3,12 @@ package de.jonas;
 import de.jonas.survival.commands.AdminCommands;
 import de.jonas.survival.commands.PlayerCommands;
 import de.jonas.survival.handler.commands.CommandHandler;
+import de.jonas.survival.listener.DeathListener;
 import de.jonas.survival.task.ScoreboardTask;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.time.format.DateTimeFormatter;
@@ -38,6 +41,13 @@ public class Survival extends JavaPlugin {
         );
         getLogger().info(
             "Registered all commands."
+        );
+
+        final PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new DeathListener(), this);
+
+        getLogger().info(
+            "Registered all listener."
         );
 
         new ScoreboardTask().runTaskTimer(

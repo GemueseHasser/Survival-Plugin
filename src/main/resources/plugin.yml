@@ -46,23 +46,12 @@ commands:
     description: 'Ändert den Namen eines Items!'
   sethome:
     description: 'Setzt dein Home!'
-    usage: '</command>'
   home:
     description: 'Teleportiert dich zu deinem Home!'
-    usage: '</command>'
   sudo:
     description: 'Führe einen Command für jemand anderen aus!'
-    usage: '</command> <player> <command>'
-  msg:
-    description: 'Sende einem Spieler eine private Nachricht!'
-    usage: '</command> <player> <message>'
-  r:
-    description: 'Sende dem letzten Spieler eine Nachricht, mit dem du geschrieben hast!'
-    usage: '</command> <message>'
-  i:
-    description: 'Gibt dir einen Stack des gewünschten Materials!'
-    usage: '</command> <material>'
-  deathpoint:
+  back:
     description: 'Teleportiert dich zu deinem Todes-Punkt!'
-    usage: '</command>'
-    aliases: 'dp'
+    aliases:
+      - 'dp'
+      - 'deathpoint'
