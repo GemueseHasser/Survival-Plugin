@@ -28,7 +28,7 @@ public final class ScoreboardHandler {
         objective.getScore(ChatColor.LIGHT_PURPLE.toString()).setScore(10);
 
         // show money
-        objective.getScore(ChatColor.AQUA.toString() + ChatColor.BOLD + "Reichs-Mark:").setScore(9);
+        objective.getScore(ChatColor.AQUA.toString() + ChatColor.BOLD + "Münzen:").setScore(9);
 
         final Team moneyTeam = scoreboard.registerNewTeam("money");
         moneyTeam.setPrefix(ChatColor.GRAY + "➤ ");
