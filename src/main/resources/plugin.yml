@@ -16,11 +16,10 @@ commands:
     description: 'Signiert ein Item!'
   gamemode:
     description: 'Setzt dich in den entsprechenden Gamemode!'
-    usage: '</command> <gamemode>'
-    aliases: 'gm'
+    aliases:
+      - 'gm'
   enchant:
     description: 'Verzaubere deine Items!'
-    usage: '</command> <enchantment> <level>'
   armor:
     description: 'zieht dir die Admin-Rüstung an!'
     usage: '</command>'

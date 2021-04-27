@@ -58,12 +58,4 @@ public @interface SurvivalCommand {
     @NotNull
     String usage() default "no usage registered!";
 
-    /**
-     * Alternative Befehls-Bezeichnungen.
-     *
-     * @return Alternative Befehls-Bezeichnungen.
-     */
-    @NotNull
-    String[] aliases() default {};
-
 }

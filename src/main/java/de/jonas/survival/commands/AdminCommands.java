@@ -93,8 +93,7 @@ public final class AdminCommands {
         minLength = 1,
         maxLength = 2,
         permission = "survival.gamemode",
-        usage = "/gamemode <1|2|3>",
-        aliases = {"gm"}
+        usage = "/gamemode <1|2|3>"
     )
     public void gamemode(
         @NotNull final Player player,

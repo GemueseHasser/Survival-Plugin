@@ -8,7 +8,6 @@ import org.bukkit.command.PluginCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 /**
  * Mithilfe des {@link CommandHandler} kann eine festgelegte Anzahl an {@link Class Klassen} als Befehle registriert
@@ -45,17 +44,12 @@ public final class CommandHandler {
 
                 // get command information from annotation
                 final String command = annotation.command();
-                final String[] aliases = annotation.aliases();
                 final int min = annotation.minLength();
                 final int max = annotation.maxLength();
                 final String permission = annotation.permission();
                 final String usage = annotation.usage();
 
                 final PluginCommand mainCommand = Survival.getInstance().getCommand(command);
-
-                // register command aliases
-                assert mainCommand != null;
-                mainCommand.setAliases(Arrays.asList(aliases));
 
                 // declare command-executor
                 final JbCommandExecutor commandExecutor = new JbCommandExecutor(
