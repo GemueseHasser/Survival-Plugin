@@ -4,8 +4,11 @@ import de.jonas.Survival;
 import de.jonas.survival.handler.economy.EconomyHandler;
 import de.jonas.survival.objects.annotations.SurvivalCommand;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 public final class PlayerCommands {
 
@@ -97,5 +100,13 @@ public final class PlayerCommands {
         player.openInventory(target.getEnderChest());
     }
     //</editor-fold>
+
+    public void setHome(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final File file = new File("plugins/Survival", "homes.yml");
+        final YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+    }
 
 }

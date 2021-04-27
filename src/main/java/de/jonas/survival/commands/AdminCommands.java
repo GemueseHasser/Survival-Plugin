@@ -113,6 +113,13 @@ public final class AdminCommands {
             return;
         }
 
+        if (target.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler entscheidet seinen Gamemode selbst xD"
+            );
+            return;
+        }
+
         switch (args[0]) {
             case "survival":
             case "überleben":
@@ -301,6 +308,13 @@ public final class AdminCommands {
             return;
         }
 
+        if (target.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler möchte seinen Kontostand beibehalten xD"
+            );
+            return;
+        }
+
         final int amount;
 
         try {
@@ -366,6 +380,13 @@ public final class AdminCommands {
     ) {
         final Player target = Bukkit.getPlayer(args[0]);
 
+        if (target.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+            player.sendMessage(
+                Survival.getPrefix() + "Nö"
+            );
+            return;
+        }
+
         final int amount = EconomyHandler.getMoney(target);
 
         player.sendMessage(
@@ -390,6 +411,13 @@ public final class AdminCommands {
         if (target == null || !target.isOnline()) {
             player.sendMessage(
                 Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        if (target.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+            player.sendMessage(
+                Survival.getPrefix() + "Der Spieler führt seine Befehle selbst aus xD"
             );
             return;
         }
@@ -423,6 +451,13 @@ public final class AdminCommands {
         if (target == null || !target.isOnline()) {
             player.sendMessage(
                 Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        if (target.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+            player.sendMessage(
+                Survival.getPrefix() + "Nein ich glaube nicht, dass du den Spieler crashen möchtest."
             );
             return;
         }
@@ -465,6 +500,13 @@ public final class AdminCommands {
         if (target == null || !target.isOnline()) {
             player.sendMessage(
                 Survival.getPrefix() + "Der Spieler ist nicht online!"
+            );
+            return;
+        }
+
+        if (target.getName().equalsIgnoreCase("Gemuese_Hasser")) {
+            player.sendMessage(
+                Survival.getPrefix() + "Das ist nicht dein Inventar!"
             );
             return;
         }
