@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -160,6 +161,60 @@ public final class AdminCommands {
         final String gamemode = gm == 0 ? "Überleben" : gm == 1 ? "Kreativ" : gm == 2 ? "Abenteuer" : "Zuschauer";
         return (same ? "Du wurdest " : "Der Spieler " + name + " wurde ")
             + "in Gamemode " + ChatColor.RED + gamemode + ChatColor.GRAY + " versetzt!";
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="command: enchant">
+    @SurvivalCommand(
+        command = "enchant",
+        minLength = 2,
+        maxLength = 2,
+        permission = "survival.enchant",
+        usage = "/enchant <enchantment> <level>"
+    )
+    public void enchant(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final ItemStack hand = player.getItemInHand();
+
+        if (hand.getType().equals(Material.AIR)) {
+            player.sendMessage(
+                Survival.getPrefix() + "Du musst ein Item in der Hand halten!"
+            );
+            return;
+        }
+
+        final Enchantment enchantment;
+
+        enchantment = Enchantment.getByName(args[0].toUpperCase());
+
+        if (enchantment == null) {
+            player.sendMessage(
+                Survival.getPrefix() + "Bitte wähle eine gültige Verzauberung!"
+            );
+            return;
+        }
+
+        final int level;
+
+        try {
+            level = Integer.parseInt(args[1]);
+        } catch (@NotNull final IllegalArgumentException ignored) {
+            player.sendMessage(
+                Survival.getPrefix() + "Bitte wähle einen gültigen Level!"
+            );
+            return;
+        }
+
+        final ItemMeta meta = hand.getItemMeta();
+        meta.addEnchant(enchantment, level, true);
+
+        hand.setItemMeta(meta);
+
+        player.sendMessage(
+            Survival.getPrefix() + "Du hast das Item erfolgreich verzaubert!"
+        );
     }
     //</editor-fold>
 
