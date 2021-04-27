@@ -42,13 +42,8 @@ commands:
     description: 'Macht dich unsichtbar (fake leave)'
     aliases:
       - 'v'
-  chatclear:
-    description: 'Leert den Chat!'
-    usage: '</command>'
-    aliases: 'cc'
   rename:
     description: 'Ändert den Namen eines Items!'
-    usage: '</command> <name>'
   sethome:
     description: 'Setzt dein Home!'
     usage: '</command>'

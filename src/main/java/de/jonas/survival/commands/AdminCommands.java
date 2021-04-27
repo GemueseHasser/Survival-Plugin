@@ -518,6 +518,7 @@ public final class AdminCommands {
     }
     //</editor-fold>
 
+    //<editor-fold desc="command: vanish">
     @SurvivalCommand(
         command = "vanish",
         permission = "survival.vanish",
@@ -563,6 +564,42 @@ public final class AdminCommands {
                 Survival.getPrefix() + "Du bist nun unsichtbar!"
             );
         }
+    }
+    //</editor-fold>
+
+    @SurvivalCommand(
+        command = "rename",
+        minLength = 1,
+        maxLength = Integer.MAX_VALUE,
+        permission = "survival.rename",
+        usage = "/rename <name>"
+    )
+    public void rename(
+        @NotNull final Player player,
+        @NotNull final String[] args
+    ) {
+        final ItemStack hand = player.getItemInHand();
+
+        if (hand.getType().equals(Material.AIR)) {
+            player.sendMessage(
+                Survival.getPrefix() + "Du musst ein Item in der Hand halten!"
+            );
+            return;
+        }
+
+        final StringBuilder builder = new StringBuilder();
+        for (@NotNull final String arg : args) {
+            builder.append(arg).append(" ");
+        }
+
+        final ItemMeta meta = hand.getItemMeta();
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', builder.toString()));
+
+        hand.setItemMeta(meta);
+
+        player.sendMessage(
+            Survival.getPrefix() + "Das Item wurde erfolgreich umbenannt!"
+        );
     }
 
 }
