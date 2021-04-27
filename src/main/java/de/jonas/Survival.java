@@ -50,8 +50,9 @@ public class Survival extends JavaPlugin {
     }
 
     private String getGeneratedPrefix() {
-        return ChatColor.GRAY.toString() + ChatColor.BOLD + "["
+        return ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "["
             + ChatColor.DARK_BLUE + "Survival"
-            + ChatColor.GRAY.toString() + ChatColor.BOLD + "]";
+            + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "]"
+            + ChatColor.GRAY + " ";
     }
 }
